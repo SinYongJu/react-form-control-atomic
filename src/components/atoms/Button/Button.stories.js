@@ -18,7 +18,6 @@ const story = storiesOf('Button', module)
 const divDecorator = story => <div style={{ padding: '3rem' }}>{story()}</div>
 
 export const button = {
-  id: '1',
   title: STORY_TITLE,
   state: STATE.BUTTON_NORMAL,
   updatedAt: new Date(2018, 0, 1, 9, 0),

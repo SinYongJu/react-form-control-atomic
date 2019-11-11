@@ -1,0 +1,14 @@
+.search_comm{
+    padding-right:80px;
+    position:relative;
+    .inp_txt{
+        border: 1px solid #bbb;
+    }
+    button{
+        position:absolute;
+        top:0;
+        right:0;
+        width:70px;
+        height:100%;
+    }
+}

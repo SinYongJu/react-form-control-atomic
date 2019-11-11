@@ -1,0 +1,62 @@
+.custom_select_comm{
+    border: 1px solid #bbb;
+    position: relative;
+    button{
+        width:100%;
+        
+    }
+    strong{
+        display:block;
+        width:100%;
+        height:50px;
+        line-height:50px;
+        background-color:#fff;
+        text-align: left;
+        padding:0 15px;
+        box-sizing:border-box
+    } 
+    em{
+        position: absolute;
+        top:0;
+        right:70px;
+        line-height:50px;
+    }
+    .ico_select{
+        position:absolute;
+        top:0;
+        right:0;
+        padding: 0 10px;
+        line-height:50px;
+    }
+    &.on{
+        .list_option{display:block}
+    }
+    .list_option{
+        position:absolute;
+        border: 1px solid #bbb;
+        top:50px;
+        left:0;
+        right:0;
+        display: none;
+        background-color: #fff;
+        box-sizing: border-box;
+        z-index:10; 
+        li {
+         
+            display:block;
+            height: 50px;
+            line-height:50px;
+            box-sizing: border-box;
+            padding: 0 10px;
+            cursor: pointer;
+         
+          &+li{
+              border-top:1px solid #bbb;
+          }
+          &:hover{
+              background-color: rgba(0,0,0,.2);
+          }
+        } 
+    }
+
+}
