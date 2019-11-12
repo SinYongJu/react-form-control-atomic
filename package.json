@@ -13,7 +13,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9999"
+    "storybook": "start-storybook -p 9999",
+    "api": "json-server --watch src/api/db.json --port 4444"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.2.5",
-    "@storybook/react": "^5.2.5"
+    "@storybook/react": "^5.2.5",
+    "json-server": "^0.15.1"
   }
 }
