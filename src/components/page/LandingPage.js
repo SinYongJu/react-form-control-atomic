@@ -4,7 +4,6 @@ import Form from '../organisms/form/Form'
 
 const LandingPage = () => {
 
-
     const search = {
         inp : {
             id : 'search',
@@ -15,12 +14,6 @@ const LandingPage = () => {
             title : '검색', 
             state : 'SEARCH_NORMAL'
         }        
-
-    }
-    
-
-    const onChangeSearch = (e) => {
-        // e.currentTarget.value 
     }
 
     const selectNumber = {
