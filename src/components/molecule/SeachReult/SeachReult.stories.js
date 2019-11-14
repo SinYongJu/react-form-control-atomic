@@ -2,18 +2,27 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 
 import SeachReult from "./SeachReult";
-import { SearchLi } from "../../atoms/SearchListItem/SearchListItem.stories"
 const STORY_TITLE = "Test SeachReult";
 const story = storiesOf("SeachReult", module);
 const divDecorator = story => <div style={{ padding: "3rem" }}>{story()}</div>;
 
-export const SearchResult = [
-    {...SearchLi},
-    {...SearchLi},
-    {...SearchLi},
-    {...SearchLi},
-]
+const STORY_LI_TITLE = "Test SearchListItem";
+
+export const SearchLi = {
+  title: STORY_LI_TITLE,
+  name: "SearchListItem",
+  datetime: "2019010102020",
+  url: "https://www.daum.net",
+  contents: "depending value on your Description"
+};
+
+export const searchResult = [
+  { ...SearchLi },
+  { ...SearchLi },
+  { ...SearchLi },
+  { ...SearchLi }
+];
 
 story
   .addDecorator(divDecorator)
-  .add("default", () => <SeachReult result={[...SearchResult]} />);
+  .add("default", () => <SeachReult result={[...searchResult]} />);

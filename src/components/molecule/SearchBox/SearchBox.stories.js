@@ -1,27 +1,24 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { inp } from '../../atoms/Input/Input.stories';
-import { button } from '../../atoms/SimpleButton/SimpleButton.stories';
-import SearchBox from './SearchBox';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
+import { inp } from "../../atoms/Input/Input.stories";
+import { button } from "../../atoms/SimpleButton/SimpleButton.stories";
+import SearchBox from "./SearchBox";
+import { BUTTON_THEME } from "../../atoms/Button/Button";
 
-const story = storiesOf('SearchBox', module)
-const divDecorator = story => <div style={{ padding: '3rem' }}>{story()}</div>
-
+const story = storiesOf("SearchBox", module);
+const divDecorator = story => <div style={{ padding: "3rem" }}>{story()}</div>;
 
 export const searchBox = {
-    inp : {...inp},
-    button :{...button},
+  inp: { ...inp },
+  button: { ...button, themeClass: BUTTON_THEME.BUTTON_YELLOW }
 };
 
 export const actions = {
-  onChange: action('onChange'),
-  onClick: action('onClick'),
+  onChange: action("onChange"),
+  onClick: action("onClick")
 };
 
-
-story.addDecorator(divDecorator)
-  .add('default', () => <SearchBox {...searchBox} {...actions} />)
-
-
-  
+story
+  .addDecorator(divDecorator)
+  .add("default", () => <SearchBox {...searchBox} {...actions} />);

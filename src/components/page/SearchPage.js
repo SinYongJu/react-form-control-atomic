@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect , useMemo } from "react";
+import React, { useState, useContext, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import SearchTemplate from "./template/SearchTemplate";
 import SearchWeb from "../organisms/SearchWeb/SearchWeb";
 import { SearchContext } from "../context/SearchContext";
 import { SEARCH_INIT } from "../constants/search_api";
+import { BUTTON_THEME } from "../atoms/SimpleButton/SimpleButton";
 
 const defualtInput = {
   id: "searchInp",
@@ -12,25 +13,27 @@ const defualtInput = {
   value: ""
 };
 const defualtSearchButton = {
-    themeClass: "btn_white",
-    text: "검색"
+  themeClass: "BUTTON_THEME.GREY",
+  text: "검색"
 };
 
-function SearchPage (props) {
-  const { searchFetch, searchGetResult,searchGetStatus } = useContext(SearchContext);
+function SearchPage(props) {
+  const { searchFetch, searchGetResult, searchGetStatus } = useContext(
+    SearchContext
+  );
   const [searchCtx, searchCtxSet] = useState({
     input: defualtInput,
     button: defualtSearchButton,
     searchResult: null,
-    status : SEARCH_INIT
+    status: SEARCH_INIT
   });
 
-  useMemo(()=>{
+  useMemo(() => {
     searchCtxSet(ctx => ({
       ...ctx,
       status: searchGetStatus()
     }));
-  },[searchGetStatus])
+  }, [searchGetStatus]);
 
   const onSearchInpChange = e => {
     e.preventDefault();
@@ -43,39 +46,35 @@ function SearchPage (props) {
   const searchKeyword = () => {
     const value = searchCtx.input.value;
     searchFetch(value);
-  }
-
-  const onSearchKeyDown = (e) =>{
-      if(e.key === 'Enter'){
-        searchKeyword()
-      }
-  }
-  const onSearchButtonClick = () => {
-    searchKeyword()
   };
- 
-  useEffect(() => {
-    if(searchCtx.status !== SEARCH_INIT){
-      searchCtxSet(ctx => (
-        {
-          ...ctx,
-            searchResult: searchGetResult()
-        }
-      ))
+
+  const onSearchKeyDown = e => {
+    if (e.key === "Enter") {
+      searchKeyword();
     }
-  }, [searchGetResult]);
+  };
+  const onSearchButtonClick = () => {
+    searchKeyword();
+  };
 
-  const searchWeb = <SearchWeb
-    searchProps={searchCtx}
-    onChange={onSearchInpChange}
-    onClick={onSearchButtonClick}
-    onKeyDown={onSearchKeyDown}
-/>
-  return (
-    <SearchTemplate search={searchWeb}/>
+  useEffect(() => {
+    if (searchCtx.status !== SEARCH_INIT) {
+      searchCtxSet(ctx => ({
+        ...ctx,
+        searchResult: searchGetResult()
+      }));
+    }
+  }, [searchCtx.status, searchGetResult]);
+
+  const searchWeb = (
+    <SearchWeb
+      searchProps={searchCtx}
+      onChange={onSearchInpChange}
+      onClick={onSearchButtonClick}
+      onKeyDown={onSearchKeyDown}
+    />
   );
-};
-
-
+  return <SearchTemplate search={searchWeb} />;
+}
 
 export default SearchPage;

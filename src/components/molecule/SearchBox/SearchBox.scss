@@ -1,14 +1,23 @@
 .box_search{
-    padding-right:80px;
-    position:relative;
-    input{
-        border: 1px solid #bbb;
+    label{
+        display:block;
+        font-size:24px;
+        font-weight: bold;
+        text-transform: uppercase
     }
-    button{
-        position:absolute;
-        top:0;
-        right:0;
-        width:70px;
-        height:100%;
+    .tf_comm{
+        padding-right:80px;
+        position:relative;
+        input{
+            border: 1px solid #bbb;
+        }
+        button{
+            position:absolute;
+            bottom:0;
+            right:0;
+            width:70px;
+            height:44px;
+        }
     }
+    
 }

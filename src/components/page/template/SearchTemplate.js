@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-
+import "./SearchTemplate.scss";
 const SearchTemplate = props => {
   const { search } = props;
   return (
@@ -9,7 +8,5 @@ const SearchTemplate = props => {
     </>
   );
 };
-
-SearchTemplate.propTypes = {};
 
 export default SearchTemplate;
