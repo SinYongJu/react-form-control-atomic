@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './SimpleButton.scss'
+export const BUTTON_THEME = {
+    DEFAULT: 'btn_comm',
+    RED: 'BUTTON_RED',
+    YELLOW: 'BUTTON_YELLOW',
+    WHITE :''
+}
 
-const SimpleButton = ({themeClass,text,onClick}) => {
+const SimpleButton = (props) => {
+    const {themeClass,text,onClick,state} = props
     return (
-        <button className={themeClass} onClick={onClick} >{text}</button>
+        <button className={themeClass&&`${BUTTON_THEME.DEFAULT} ${themeClass}`}  disabled={state&&state==='BUTTON_DISABLED'? true : false} onClick={onClick} >{text}</button>
     );
 };
 
@@ -15,3 +22,13 @@ SimpleButton.propTypes = {
 };
 
 export default SimpleButton;
+
+
+SimpleButton.defaultProps = {
+    button: {
+        themeClass : BUTTON_THEME.DEFAULT,
+        title: 'BUTTON',
+        state: null,
+    },
+    onClick: ()=>{console.log('insult your click')}
+} 
