@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Input.scss";
 const Input = props => {
-  const { id, name, placeholder, value, onChange } = props;
+  const { id, name, placeholder, value, onChange ,onKeyDown} = props;
   return (
     <input
       id={id}
@@ -10,6 +10,7 @@ const Input = props => {
       value={value}
       placeholder={placeholder}
       onChange={onChange}
+      onKeyDown={onKeyDown}
     />
   );
 };
@@ -19,7 +20,8 @@ Input.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onKeyDown: PropTypes.func
 };
 
 export default Input;

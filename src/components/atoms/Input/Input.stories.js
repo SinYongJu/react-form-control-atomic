@@ -19,6 +19,7 @@ export const inp = {
 
 export const actions = {
   onChange: action('onChange'),
+  onKeydown: action('onChange')
 };
 
 

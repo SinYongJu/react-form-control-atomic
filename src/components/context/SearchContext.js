@@ -11,6 +11,7 @@ export const SearchProvider = ({ children, ...rest }) => {
   const searchFetch = async keyword => {
     let url = WEB_SEARCH_URL + keyword;
     const data = await fetch(url).then(res => res.json());
+    console.log(data)
     actionSearch(c => ({
       ...c,
       result: data[0][WEB_SEARCH_RESULT]

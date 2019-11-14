@@ -1,6 +1,5 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 import SearchListItem from "./SearchListItem";
 
 const STORY_TITLE = "Test SearchListItem";
@@ -17,4 +16,4 @@ export const SearchLi = {
 
 story
   .addDecorator(divDecorator)
-  .add("default", () => <SearchListItem {...SearchLi} />);
+  .add("default", () => <SearchListItem item={{...SearchLi}} />);

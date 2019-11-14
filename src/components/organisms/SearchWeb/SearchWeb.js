@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import SearchBox from "../../molecule/SearchBox/SearchBox";
 import SeachReult from "../../molecule/SeachReult/SeachReult";
 
-const SearchWeb = ({ searchProps, onClick, onChange }) => {
+const SearchWeb = ({ searchProps, onClick, onChange , onKeyDown}) => {
   const { inp, button, searchResult } = searchProps;
   return (
     <>
@@ -12,6 +12,7 @@ const SearchWeb = ({ searchProps, onClick, onChange }) => {
         button={button}
         onClick={onClick}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
       {searchResult && searchResult.length > 0 && (
         <SeachReult result={searchResult} />

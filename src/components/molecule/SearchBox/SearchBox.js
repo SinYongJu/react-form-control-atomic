@@ -4,12 +4,12 @@ import Input from "../../atoms/Input/Input";
 import SimpleButton from "../../atoms/SimpleButton/SimpleButton";
 import "./SearchBox.scss";
 
-const SearchBox = ({ inp, button, onChange, onClick }) => {
+const SearchBox = ({ inp, button, onChange, onClick,onKeyDown }) => {
   const { id, value } = inp;
   return (
     <div className="box_search">
       <label htmlFor={id}>let's Search {value}</label>
-      <Input {...inp} onChange={onChange} />
+      <Input {...inp} onChange={onChange} onKeyDown={onKeyDown}/>
       <SimpleButton
         {...button}
         themeClass={"btn_white"}

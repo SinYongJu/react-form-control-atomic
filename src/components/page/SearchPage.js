@@ -34,11 +34,20 @@ const SearchPage = props => {
       inp: { value }
     }));
   };
+
+  const onSearchKeyDown = (e) =>{
+      if(e.key === 'Enter'){
+        doSearch()
+      }
+    
+  }
   const onSearchButtonClick = () => {
-    console.log("click");
+    doSearch()
+  };
+  const doSearch = () => {
     const value = searchProps.inp.value;
     searchFetch(value);
-  };
+  }
   useEffect(() => {
     console.log("변하니?");
     actionSearchProps(c => ({
@@ -53,6 +62,7 @@ const SearchPage = props => {
           searchProps={searchProps}
           onChange={onSearchInpChange}
           onClick={onSearchButtonClick}
+          onKeyDown={onSearchKeyDown}
         />
       }
     />

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SearchListItem from "../../atoms/SearchListItem/SearchListItem";
-
+import './SeachReult.scss'
 const SeachReult = ({ result }) => {
   return (
     <ul>
