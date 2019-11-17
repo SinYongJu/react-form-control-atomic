@@ -13,7 +13,7 @@ const defualtInput = {
   value: ""
 };
 const defualtSearchButton = {
-  themeClass: "BUTTON_THEME.GREY",
+  themeClass: BUTTON_THEME.GREY,
   text: "검색"
 };
 
@@ -21,7 +21,7 @@ function SearchPage(props) {
   const { searchFetch, searchGetResult, searchGetStatus } = useContext(
     SearchContext
   );
-  const [searchCtx, searchCtxSet] = useState({
+  const [searchCtx, searchSetCtx] = useState({
     input: defualtInput,
     button: defualtSearchButton,
     searchResult: null,
@@ -29,16 +29,16 @@ function SearchPage(props) {
   });
 
   useMemo(() => {
-    searchCtxSet(ctx => ({
+    searchSetCtx(ctx => ({
       ...ctx,
       status: searchGetStatus()
     }));
   }, [searchGetStatus]);
 
-  const onSearchInpChange = e => {
+  const onSearchInputChange = e => {
     e.preventDefault();
     let value = e.target.value;
-    searchCtxSet(ctx => ({
+    searchSetCtx(ctx => ({
       ...ctx,
       input: { value }
     }));
@@ -59,7 +59,7 @@ function SearchPage(props) {
 
   useEffect(() => {
     if (searchCtx.status !== SEARCH_INIT) {
-      searchCtxSet(ctx => ({
+      searchSetCtx(ctx => ({
         ...ctx,
         searchResult: searchGetResult()
       }));
@@ -69,7 +69,7 @@ function SearchPage(props) {
   const searchWeb = (
     <SearchWeb
       searchProps={searchCtx}
-      onChange={onSearchInpChange}
+      onChange={onSearchInputChange}
       onClick={onSearchButtonClick}
       onKeyDown={onSearchKeyDown}
     />
