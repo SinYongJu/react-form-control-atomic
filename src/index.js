@@ -5,6 +5,7 @@ import LandingPage from "./components/page/LandingPage";
 import SamplePage from "./components/page/SamplePage";
 import SearchPage from "./components/page/SearchPage";
 import { SearchProvider } from "./components/context/SearchContext";
+import EditPage from "./components/page/EditPage";
 const App = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const App = () => {
       </header>
       <SearchProvider>
         <SearchPage></SearchPage>
+        <EditPage />
       </SearchProvider>
     </>
   );

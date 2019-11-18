@@ -6,10 +6,10 @@ import Input from './Input';
 
 
 const STORY_TITLE = "Test input"
-const story = storiesOf('input', module)
+const story = storiesOf('Atoms/input', module)
 const divDecorator = story => <div style={{ padding: '3rem' }}>{story()}</div>
 
-export const inp = {
+export const input = {
   id : 'input01', 
   name:'input',
   themeClass : 'btn_normal',
@@ -24,6 +24,6 @@ export const actions = {
 
 
 story.addDecorator(divDecorator)
-  .add('default', () => <Input {...inp} {...actions} />)
+  .add('default', () => <Input {...input} {...actions} />)
 
   

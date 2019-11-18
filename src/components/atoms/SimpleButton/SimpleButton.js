@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./SimpleButton.scss";
 export const BUTTON_THEME = {
   DEFAULT: "btn_comm",
+  BLACK : "BUTTON_BLACK",
   RED: "BUTTON_RED",
   YELLOW: "BUTTON_YELLOW",
   WHITE: "BUTTON_WHITE",
@@ -31,11 +32,9 @@ SimpleButton.propTypes = {
 export default SimpleButton;
 
 SimpleButton.defaultProps = {
-  button: {
-    themeClass: BUTTON_THEME.DEFAULT,
-    title: "BUTTON",
-    state: null
-  },
+  themeClass: BUTTON_THEME.DEFAULT,
+  title: "BUTTON",
+  state: null,
   onClick: () => {
     console.log("insult your click");
   }

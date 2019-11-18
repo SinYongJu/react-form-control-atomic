@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 
 import SearchWeb from "./SearchWeb";
-import { searchResult } from "../../molecule/SeachReult/SeachReult.stories";
+import { searchResult } from "../../molecule/SeachResult/SeachResult.stories";
 import {
   SEARCH_INIT,
   SEARCH_PENDING,
@@ -18,7 +18,6 @@ const searchProps = {
   button: { themeClass: BUTTON_THEME.YELLOW },
   status: SEARCH_INIT
 };
-console.log(searchProps);
 
 story
   .addDecorator(divDecorator)

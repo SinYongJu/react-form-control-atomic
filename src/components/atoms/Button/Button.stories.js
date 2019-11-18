@@ -13,7 +13,7 @@ const STATE = {
     BUTTON_DISABLED : "BUTTON_DISABLED",
 }
 
-const story = storiesOf('Button', module)
+const story = storiesOf('Atoms/Button', module)
 
 const divDecorator = story => <div style={{ padding: '3rem' }}>{story()}</div>
 

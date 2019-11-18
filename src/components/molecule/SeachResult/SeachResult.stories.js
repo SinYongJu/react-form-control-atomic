@@ -1,9 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 
-import SeachReult from "./SeachReult";
+import SeachResult from "./SeachResult";
 const STORY_TITLE = "Test SeachReult";
-const story = storiesOf("SeachReult", module);
+const story = storiesOf("SeachResult", module);
 const divDecorator = story => <div style={{ padding: "3rem" }}>{story()}</div>;
 
 const STORY_LI_TITLE = "Test SearchListItem";
@@ -25,4 +25,4 @@ export const searchResult = [
 
 story
   .addDecorator(divDecorator)
-  .add("default", () => <SeachReult result={[...searchResult]} />);
+  .add("default", () => <SeachResult result={[...searchResult]} />);

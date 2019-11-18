@@ -1,0 +1,18 @@
+.EditTemplate{
+    max-width: 740px;
+    margin:0 auto;
+    padding:0 10px;
+    box-sizing: border-box;
+    .area_body{
+        margin: 10px 0;
+    }
+    .area_button {
+        margin-top:20px;
+        .btn_comm{
+            max-width:350px;
+            margin:0 5px;
+            box-sizing:border-box
+        }
+    }
+    
+}

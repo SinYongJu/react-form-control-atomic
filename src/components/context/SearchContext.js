@@ -15,10 +15,9 @@ export const SearchProvider = ({ children, ...rest }) => {
     searchSetStatus(SEARCH_PENDING)
     const response = await fetch(url)
     const data = await response.json();
-    const result = data[0]&&data[0][WEB_SEARCH_RESULT] ? data[0][WEB_SEARCH_RESULT] :[]
     searchSet(c => ({
       ...c,
-      result: result,
+      result: data,
       status: SEARCH_RESULT
     }));
     
