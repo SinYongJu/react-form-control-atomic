@@ -3,6 +3,7 @@
 }
 .btn_comm{width:100%;height:60px;background-color:#000;font-size:14px;font-weight:500;color:#fff;border-radius:5px;padding:10px 15px;box-sizing: border-box;}
 .btn_comm:hover{background-color:aqua}
+.btn_comm:disabled{background-color:#ddd}
 .BUTTON_BLACK{background-color:#000}
 .BUTTON_RED{background-color:red}
 .BUTTON_YELLOW{background-color:yellow;color:#333}

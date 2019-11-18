@@ -7,11 +7,11 @@ import {
   SEARCH_RESULT
 } from "../../constants/search_api";
 
-const SearchListItem = ({ item: { cuntent_id, title, contents, url, datetime } }) => {
+const SearchListItem = ({ item: { id, title, contents, url, datetime } }) => {
   return (
     <li>
-      <span>{cuntent_id}</span>
-      <a href={url}> 
+      <span>{id}</span>
+      <a href={url}>
         <strong>{title}</strong>
         <p>{contents}</p>
       </a>
@@ -21,8 +21,8 @@ const SearchListItem = ({ item: { cuntent_id, title, contents, url, datetime } }
 };
 
 function SeachResult(props) {
-  console.log(props)
-  const { result , status} = props
+  console.log(props);
+  const { result, status } = props;
   if (status === SEARCH_INIT) {
     return null;
   }
@@ -34,11 +34,11 @@ function SeachResult(props) {
   }
   return (
     <ul className="webList">
-      { result.map((item, index) => (
-          <SearchListItem key={`search_${index}`} item={item} />
-        ))}
+      {result.map((item, index) => (
+        <SearchListItem key={`search_${index}`} item={item} />
+      ))}
     </ul>
-  )
+  );
 }
 
 SearchListItem.propTypes = {

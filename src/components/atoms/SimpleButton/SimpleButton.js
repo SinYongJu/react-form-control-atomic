@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./SimpleButton.scss";
 export const BUTTON_THEME = {
   DEFAULT: "btn_comm",
-  BLACK : "BUTTON_BLACK",
+  BLACK: "BUTTON_BLACK",
   RED: "BUTTON_RED",
   YELLOW: "BUTTON_YELLOW",
   WHITE: "BUTTON_WHITE",

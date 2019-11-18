@@ -1,11 +1,30 @@
 GET http://localhost:4444/search/?q= HTTP/1.1
 
+###
+GET http://localhost:4444/search/:id HTTP/1.1
 
 ###
-POST https://localhost:4444/products HTTP/1.1
+DELETE http://localhost:4444/search/:id HTTP/1.1
+
+###
+POST https://localhost:4444/search HTTP/1.1
 content-type: application/json
 
 {
-    "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+  "datetime": "2017-06-14T00:00:00.000+09:00",
+  "contents": "이름 이효리(李孝利) 출생 1979년 5월 10일, 충청북도 청주시 흥덕구 오송읍[1] 나이 39세 (만 38세) 본관 광주 이씨 [2] 신체 164cm, 53kg, A형 학력 서울동작초등학교 서문여자중학교 서문여자고등학교...",
+  "title": "이효리 - 나무위키",
+  "url": "https://namu.wiki/w/%EC%9D%B4%ED%9A%A8%EB%A6%AC" 
+}
+
+###
+
+PUT  https://localhost:4444/search/:id HTTP/1.1
+content-type: application/json
+
+{
+  "datetime": "2017-06-14T00:00:00.000+09:00",
+  "contents": "이름 이효리(李孝利) 출생 1979년 5월 10일, 충청북도 청주시 흥덕구 오송읍[1] 나이 39세 (만 38세) 본관 광주 이씨 [2] 신체 164cm, 53kg, A형 학력 서울동작초등학교 서문여자중학교 서문여자고등학교...",
+  "title": "이효리 - 나무위키",
+  "url": "https://namu.wiki/w/%EC%9D%B4%ED%9A%A8%EB%A6%AC" 
 }
