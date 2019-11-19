@@ -1,0 +1,7 @@
+export const EDIT_STATE = {
+    INIT : 'INIT',
+    INSERTING : 'INSERTING',
+    POSSIBLE : 'POSSIBLE',
+    VALIDATING : 'VALIDATING'
+}
+export const EDIT_VALID_TEXT_LENGTH = 3;

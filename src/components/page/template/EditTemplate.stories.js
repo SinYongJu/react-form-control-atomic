@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import EditTemplate from './EditTemplate'
 import { action } from '@storybook/addon-actions';
 import SimpleButton, { BUTTON_THEME } from '../../atoms/SimpleButton/SimpleButton'
-import {editpost} from '../../organisms/EditWebPost/EditWebPost.stories';
+import {editpost,editErrorPost} from '../../organisms/EditWebPost/EditWebPost.stories';
 import EditWebPost from '../../organisms/EditWebPost/EditWebPost';
 
 const story = storiesOf("Template/EditTemplate", module);

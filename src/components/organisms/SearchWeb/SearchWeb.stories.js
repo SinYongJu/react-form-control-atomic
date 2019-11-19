@@ -10,7 +10,7 @@ import {
 } from "../../constants/search_api";
 import { BUTTON_THEME } from "../../atoms/SimpleButton/SimpleButton";
 
-const story = storiesOf("SearchWeb", module);
+const story = storiesOf("Organism/SearchWeb", module);
 const divDecorator = story => <div style={{ padding: "3rem" }}>{story()}</div>;
 
 const searchProps = {
