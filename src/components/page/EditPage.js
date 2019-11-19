@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import EditTemplate from "./template/EditTemplate";
 import SimpleButton, { BUTTON_THEME } from "../atoms/SimpleButton/SimpleButton";
 import EditWebPost from "../organisms/EditWebPost/EditWebPost";
-import { EDIT_STATE , EDIT_VALID_TEXT_LENGTH } from "../constants/edit_state";
+import { EDIT_STATE ,EDIT_PAGE_MODE, EDIT_VALID_TEXT_LENGTH } from "../constants/edit_state";
 import { EditContext } from "../context/EditContext";
 
 
@@ -30,14 +30,26 @@ const editInputDesc = {
 };
 
 const EditPage = () => {
+  const {onEditSumbitHandler,editGetMode,editGetTarget} = useContext(EditContext)
   const [editCtx, editSetCtx] = React.useState({
     inputTitle: { ...editInputTitle },
     inputDesc: { ...editInputDesc },
     state : EDIT_STATE.INIT
   });
+  
+  useEffect(() => {
+    editSetCtx(ctx => 
+      {
+        return {
+          ...ctx,
+          mode : editGetMode(),
+          target : editGetTarget()
+        }
+      })
 
-  const {onEditSumbitHandler} = useContext(EditContext)
-  const editSetState = (value) => {
+  },[editGetMode]);
+
+  const editPageSetState = (value) => {
     editSetCtx(ctx => ({
         ...ctx,
         state : value
@@ -49,11 +61,11 @@ const EditPage = () => {
         return
     }
     if(editCtx.inputTitle.isValid&&editCtx.inputDesc.isValid){
-        editSetState(EDIT_STATE.POSSIBLE)
+        editPageSetState(EDIT_STATE.POSSIBLE)
     }else if(editCtx.inputTitle.value.length > EDIT_VALID_TEXT_LENGTH && editCtx.inputDesc.value.length > EDIT_VALID_TEXT_LENGTH){
-        editSetState(EDIT_STATE.VALIDATING)
+        editPageSetState(EDIT_STATE.VALIDATING)
     }else{
-        editSetState(EDIT_STATE.INSERTING)
+        editPageSetState(EDIT_STATE.INSERTING)
     }
   },[editCtx.state,editCtx.inputTitle.isValid,editCtx.inputDesc.isValid,editCtx.inputTitle.value,editCtx.inputDesc.value])
 
@@ -63,7 +75,7 @@ const EditPage = () => {
     let value = e.target.value;
     editSetCtx(ctx => {
       if(editCtx.state === EDIT_STATE.INIT){
-        editSetState(EDIT_STATE.INSERTING)
+        editPageSetState(EDIT_STATE.INSERTING)
       }      
       ctx[name].value = value;
       return {

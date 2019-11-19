@@ -5,7 +5,6 @@ import SearchWeb from "../organisms/SearchWeb/SearchWeb";
 import { SearchContext } from "../context/SearchContext";
 import { SEARCH_INIT } from "../constants/search_api";
 import { BUTTON_THEME } from "../atoms/SimpleButton/SimpleButton";
-import { EditContext } from "../context/EditContext";
 
 const defualtInput = {
   id: "searchInp",
@@ -22,7 +21,6 @@ function SearchPage(props) {
   const { searchFetch, searchResults, searchGetStatus } = useContext(
     SearchContext
   );
-  const { onEditDeleteHandler } = React.useContext(EditContext)
   const [searchCtx, searchSetCtx] = useState({
     input: defualtInput,
     button: defualtSearchButton,

@@ -6,6 +6,10 @@ import {
   SEARCH_INIT,
   SEARCH_RESULT
 } from "../../constants/search_api";
+import SimpleButton from "../../atoms/SimpleButton/SimpleButton";
+import {
+  Link
+} from "react-router-dom";
 
 
 
@@ -19,6 +23,10 @@ const SearchListItem = (props) => {
         <p>{contents}</p>
       </a>
       <small>{datetime}</small>
+      <div>
+        <Link to={`/edit/modify/${id}`}>수정</Link>
+        <Link to={`/edit/delete/${id}`}>삭제</Link>
+      </div>
     </li>
   );
 };
