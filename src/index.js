@@ -6,16 +6,19 @@ import SamplePage from "./components/page/SamplePage";
 import SearchPage from "./components/page/SearchPage";
 import { SearchProvider } from "./components/context/SearchContext";
 import EditPage from "./components/page/EditPage";
+import { EditProvider } from "./components/context/EditContext";
 const App = () => {
   return (
     <>
       <header>
         <h1>Form control</h1>
       </header>
-      <SearchProvider>
-        <SearchPage></SearchPage>
-        <EditPage />
-      </SearchProvider>
+      <EditProvider>
+        <SearchProvider>
+          <SearchPage></SearchPage>
+          <EditPage />
+        </SearchProvider>
+      </EditProvider>
     </>
   );
 };

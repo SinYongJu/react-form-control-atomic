@@ -13,6 +13,8 @@ export const inputInfo = {
   text : 'insert your input title',
   error : 'Error text, insert your texy Error TEXT!' ,
   isValid : true,
+  validate : ()=>{console.log('validate')},
+  regex : /\\/,
   state : EDIT_STATE.INIT
 };
 

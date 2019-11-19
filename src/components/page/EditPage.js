@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import EditTemplate from "./template/EditTemplate";
 import SimpleButton, { BUTTON_THEME } from "../atoms/SimpleButton/SimpleButton";
 import EditWebPost from "../organisms/EditWebPost/EditWebPost";
 import { EDIT_STATE , EDIT_VALID_TEXT_LENGTH } from "../constants/edit_state";
+import { EditContext } from "../context/EditContext";
 
 
 const regexr = /^[`~!@#$%^&*|\\'";:/?]/;
@@ -15,7 +16,8 @@ const editInputTitle = {
   placeholder: "title",
   value: "",
   isValid: false,
-  error : ERROR_TEXT
+  error : ERROR_TEXT,
+  regex : regexr
 };
 const editInputDesc = {
   id: "descInp",
@@ -23,10 +25,9 @@ const editInputDesc = {
   placeholder: "description...",
   value: "",
   isValid: false,
-  error : ERROR_TEXT
+  error : ERROR_TEXT,
+  regex : regexr
 };
-
-
 
 const EditPage = () => {
   const [editCtx, editSetCtx] = React.useState({
@@ -34,12 +35,15 @@ const EditPage = () => {
     inputDesc: { ...editInputDesc },
     state : EDIT_STATE.INIT
   });
+
+  const {webpostCreate} = useContext(EditContext)
   const editSetState = (value) => {
     editSetCtx(ctx => ({
         ...ctx,
         state : value
     }))
   }
+
   useEffect(()=>{
     if(editCtx.state === EDIT_STATE.INIT){
         return
@@ -60,9 +64,7 @@ const EditPage = () => {
     editSetCtx(ctx => {
       if(editCtx.state === EDIT_STATE.INIT){
         editSetState(EDIT_STATE.INSERTING)
-      }
-      
-      editValueValidate(name, value);
+      }      
       ctx[name].value = value;
       return {
         ...ctx
@@ -70,11 +72,8 @@ const EditPage = () => {
     });
 
   };
-
-
-
-  const editValueValidate = (name, value) => {
-    let isRegValid = regexr.test(value);
+  const editValueValidate = (name, value,regex) => {
+    let isRegValid = regex.test(value);
     if (!isRegValid && value.length > EDIT_VALID_TEXT_LENGTH) {
       editSetCtx(ctx => {
         ctx[name].isValid = true;
@@ -95,14 +94,33 @@ const EditPage = () => {
     themeClass: BUTTON_THEME.RED,
     text: "submit"
   };
+  
   const buttonCancel = {
     text: "cancel"
   };
+
   const onEditSubmitButton = () => {
     console.log("submit");
+    try {
+        let body = {
+            datetime: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString(),
+            contents: editCtx.inputDesc.value,
+            title: editCtx.inputTitle.value,
+            url: 'https://namu.wiki/w/%EC%9D%B4%ED%9A%A8%EB%A6%AC'
+        }
+        webpostCreate(JSON.stringify(body))
+    } catch (error) {
+        console.log(error)
+    }
+  
   };
   const onEditCancelButton = () => {
     console.log("cancel");
+    editSetCtx({
+        inputTitle: { ...editInputTitle },
+        inputDesc: { ...editInputDesc },
+        state : EDIT_STATE.INIT
+      })
   };
 
   const editContents = {
@@ -111,6 +129,7 @@ const EditPage = () => {
       <EditWebPost
         editpost={editCtx}
         onChange={onEditChange}
+        validate={editValueValidate}
       ></EditWebPost>
     ),
     buttonSubmit: (
