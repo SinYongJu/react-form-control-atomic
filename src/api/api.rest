@@ -18,7 +18,6 @@ content-type: application/json
 }
 
 ###
-
 PUT  https://localhost:4444/search/:id HTTP/1.1
 content-type: application/json
 

@@ -9,7 +9,7 @@ export const SearchProvider = ({ children, ...rest }) => {
     result: [],
     status : SEARCH_INIT
   });
-
+  
   const searchFetch = async keyword => {
     let url = WEB_SEARCH_URL + keyword;
     searchSetStatus(SEARCH_PENDING)
@@ -33,8 +33,8 @@ export const SearchProvider = ({ children, ...rest }) => {
   const searchGetResult = () => search.result;
   const value = {
     searchFetch,
-    searchGetResult,
-    searchGetStatus
+    searchGetStatus,
+    searchResults :  searchGetResult()
   };
   return (
     <SearchContext.Provider value={value} {...rest}>

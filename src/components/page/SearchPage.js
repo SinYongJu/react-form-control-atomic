@@ -5,6 +5,7 @@ import SearchWeb from "../organisms/SearchWeb/SearchWeb";
 import { SearchContext } from "../context/SearchContext";
 import { SEARCH_INIT } from "../constants/search_api";
 import { BUTTON_THEME } from "../atoms/SimpleButton/SimpleButton";
+import { EditContext } from "../context/EditContext";
 
 const defualtInput = {
   id: "searchInp",
@@ -18,9 +19,10 @@ const defualtSearchButton = {
 };
 
 function SearchPage(props) {
-  const { searchFetch, searchGetResult, searchGetStatus } = useContext(
+  const { searchFetch, searchResults, searchGetStatus } = useContext(
     SearchContext
   );
+  const { onEditDeleteHandler } = React.useContext(EditContext)
   const [searchCtx, searchSetCtx] = useState({
     input: defualtInput,
     button: defualtSearchButton,
@@ -61,10 +63,10 @@ function SearchPage(props) {
     if (searchCtx.status !== SEARCH_INIT) {
       searchSetCtx(ctx => ({
         ...ctx,
-        searchResult: searchGetResult()
+        searchResult: searchResults
       }));
     }
-  }, [searchCtx.status, searchGetResult]);
+  }, [searchCtx.status, searchResults]);
 
   const searchWeb = (
     <SearchWeb

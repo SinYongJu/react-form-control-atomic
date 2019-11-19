@@ -36,7 +36,7 @@ const EditPage = () => {
     state : EDIT_STATE.INIT
   });
 
-  const {webpostCreate} = useContext(EditContext)
+  const {onEditSumbitHandler} = useContext(EditContext)
   const editSetState = (value) => {
     editSetCtx(ctx => ({
         ...ctx,
@@ -100,7 +100,6 @@ const EditPage = () => {
   };
 
   const onEditSubmitButton = () => {
-    console.log("submit");
     try {
         let body = {
             datetime: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString(),
@@ -108,7 +107,7 @@ const EditPage = () => {
             title: editCtx.inputTitle.value,
             url: 'https://namu.wiki/w/%EC%9D%B4%ED%9A%A8%EB%A6%AC'
         }
-        webpostCreate(JSON.stringify(body))
+        onEditSumbitHandler(JSON.stringify(body))
     } catch (error) {
         console.log(error)
     }

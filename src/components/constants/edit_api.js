@@ -11,22 +11,25 @@ const postMakeReqUrlInOption = (option) => {
    }
 }
 
-
-
 const WEBPOST_FETCH_OPTION_GET_BY_ID = {
     method : 'GET',
-    // url : postMakeApiRequestUrl('/:id')
 }
 export const webpostGetOptionByid = (id) => {
     return postMakeReqUrlInOption(WEBPOST_FETCH_OPTION_GET_BY_ID)('/'+id)
 }
-export const WEBPOST_FETCH_OPTION_DELETE_BY_ID = {
+const WEBPOST_FETCH_OPTION_DELETE_BY_ID = {
     method : 'DELETE',
 }
+export const webpostDeleteOptionByid = (id) => {
+    return postMakeReqUrlInOption(WEBPOST_FETCH_OPTION_DELETE_BY_ID)('/'+id)
+}
+
 export const WEBPOST_FETCH_OPTION_UPDATE_BY_ID = {
     method : 'PUT',
     body : {}
 }
+
+
 const WEBPOST_FETCH_OPTION_CREATE = {
     method : 'POST',
     url : postMakeReqUrlInOption(),
