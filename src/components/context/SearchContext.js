@@ -1,7 +1,6 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 import { WEB_SEARCH_URL, SEARCH_RESULT ,SEARCH_PENDING, SEARCH_INIT } from "../constants/search_api";
 
-const WEB_SEARCH_RESULT = "documents";
 export const SearchContext = createContext(null);
 
 export const SearchProvider = ({ children, ...rest }) => {
@@ -9,7 +8,6 @@ export const SearchProvider = ({ children, ...rest }) => {
     result: [],
     status : SEARCH_INIT
   });
-  
   const searchFetch = async keyword => {
     let url = WEB_SEARCH_URL + keyword;
     searchSetStatus(SEARCH_PENDING)
@@ -20,9 +18,7 @@ export const SearchProvider = ({ children, ...rest }) => {
       result: data,
       status: SEARCH_RESULT
     }));
-    
-  };
-
+  }
   const searchSetStatus = (status) => {
     searchSet(c => ({
       ...c,

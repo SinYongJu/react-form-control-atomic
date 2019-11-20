@@ -5,8 +5,7 @@ import {
   SEARCH_PENDING,
   SEARCH_INIT,
   SEARCH_RESULT
-} from "../../constants/search_api";
-import SimpleButton from "../../atoms/SimpleButton/SimpleButton";
+} from "../../constants/search_api"; 
 import {
   Link
 } from "react-router-dom";

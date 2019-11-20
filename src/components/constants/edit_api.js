@@ -24,11 +24,13 @@ export const webpostDeleteOptionByid = (id) => {
     return postMakeReqUrlInOption(WEBPOST_FETCH_OPTION_DELETE_BY_ID)('/'+id)
 }
 
-export const WEBPOST_FETCH_OPTION_UPDATE_BY_ID = {
+const WEBPOST_FETCH_OPTION_UPDATE_BY_ID = {
     method : 'PUT',
     body : {}
 }
-
+export const webpostPostModify = (id) => {
+    return postMakeReqUrlInOption(WEBPOST_FETCH_OPTION_UPDATE_BY_ID)('/'+id)
+}
 
 const WEBPOST_FETCH_OPTION_CREATE = {
     method : 'POST',

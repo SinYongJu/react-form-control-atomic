@@ -2,145 +2,160 @@ import React, { useEffect, useContext } from "react";
 import EditTemplate from "./template/EditTemplate";
 import SimpleButton, { BUTTON_THEME } from "../atoms/SimpleButton/SimpleButton";
 import EditWebPost from "../organisms/EditWebPost/EditWebPost";
-import { EDIT_STATE ,EDIT_PAGE_MODE, EDIT_VALID_TEXT_LENGTH } from "../constants/edit_state";
+import { EDIT_STATE , EDIT_VALID_TEXT_LENGTH } from "../constants/edit_state";
 import { EditContext } from "../context/EditContext";
+import {
+  useHistory
+} from "react-router-dom";
 
-
-const regexr = /^[`~!@#$%^&*|\\'";:/?]/;
-
+const regex = /^[`~!@#$%^&*|\\'";:/?]/;
+const EDIT_STATE_PROPERTY = 'state';
 const ERROR_TEXT = '필수 항목 입니다. 특수문자 없이, 4글자 이상으로 작성해주세요.'
-
 const editInputTitle = {
   id: "titleInp",
   name: "inputTitle",
   placeholder: "title",
   value: "",
-  isValid: false,
   error : ERROR_TEXT,
-  regex : regexr
+  regex : regex
 };
 const editInputDesc = {
   id: "descInp",
   name: "inputDesc",
   placeholder: "description...",
   value: "",
-  isValid: false,
   error : ERROR_TEXT,
-  regex : regexr
+  regex : regex
+};
+const buttonSubmit = {
+  themeClass: BUTTON_THEME.RED,
+  text: "submit"
 };
 
-const EditPage = () => {
-  const {onEditSumbitHandler,editGetMode,editGetTarget} = useContext(EditContext)
+const buttonCancel = {
+  text: "cancel"
+};
+const validateInputValue = (value) => {
+  if(value.length > EDIT_VALID_TEXT_LENGTH){
+    let isRegValid = regex.test(value);
+    return !isRegValid
+  } 
+  return false
+};
+function EditPage (){
+  const history = useHistory();
+  const {onEditSumbitHandler,onEditCancelHandler,editGetMode,editGetTarget} = useContext(EditContext)
   const [editCtx, editSetCtx] = React.useState({
-    inputTitle: { ...editInputTitle },
-    inputDesc: { ...editInputDesc },
-    state : EDIT_STATE.INIT
-  });
-  
+    inputTitle : editInputTitle,
+    inputDesc : editInputDesc,
+    state : EDIT_STATE.INIT,
+    isValid : false,
+    mode : null
+  });  
   useEffect(() => {
-    editSetCtx(ctx => 
-      {
+      editSetCtx(ctx => {
+        let {contents, title , id} = editGetTarget();
+        let targetId = id || null;
+        let contentsValue = contents || ""
+        let titleValue = title || ""
         return {
           ...ctx,
+          inputTitle : {...ctx.inputTitle,value : titleValue},
+          inputDesc : {...ctx.inputDesc, value : contentsValue},
           mode : editGetMode(),
-          target : editGetTarget()
+          id : targetId
         }
       })
+  },[editGetMode,editGetTarget]);
 
-  },[editGetMode]);
-
-  const editPageSetState = (value) => {
+  const editPageUpdateCtxState = (name,value) => {
     editSetCtx(ctx => ({
         ...ctx,
-        state : value
+        [name] : value
     }))
   }
-
   useEffect(()=>{
     if(editCtx.state === EDIT_STATE.INIT){
-        return
+      if(editCtx.inputTitle.value.length > EDIT_VALID_TEXT_LENGTH && editCtx.inputDesc.value.length > EDIT_VALID_TEXT_LENGTH){
+        editPageUpdateCtxState(EDIT_STATE_PROPERTY,EDIT_STATE.VALIDATING)
+      }
+      return
     }
-    if(editCtx.inputTitle.isValid&&editCtx.inputDesc.isValid){
-        editPageSetState(EDIT_STATE.POSSIBLE)
+    if(editCtx.isValid){
+      editPageUpdateCtxState(EDIT_STATE_PROPERTY,EDIT_STATE.POSSIBLE)
     }else if(editCtx.inputTitle.value.length > EDIT_VALID_TEXT_LENGTH && editCtx.inputDesc.value.length > EDIT_VALID_TEXT_LENGTH){
-        editPageSetState(EDIT_STATE.VALIDATING)
+      editPageUpdateCtxState(EDIT_STATE_PROPERTY,EDIT_STATE.VALIDATING)
     }else{
-        editPageSetState(EDIT_STATE.INSERTING)
+      editPageUpdateCtxState(EDIT_STATE_PROPERTY,EDIT_STATE.INSERTING)
     }
-  },[editCtx.state,editCtx.inputTitle.isValid,editCtx.inputDesc.isValid,editCtx.inputTitle.value,editCtx.inputDesc.value])
-
+  },[editCtx.state,editCtx.isValid,editCtx.inputTitle.value,editCtx.inputDesc.value])
   
   const onEditChange = e => {
     let name = e.target.name;
     let value = e.target.value;
     editSetCtx(ctx => {
       if(editCtx.state === EDIT_STATE.INIT){
-        editPageSetState(EDIT_STATE.INSERTING)
-      }      
+        editPageUpdateCtxState(EDIT_STATE_PROPERTY,EDIT_STATE.INSERTING)
+      }
       ctx[name].value = value;
       return {
         ...ctx
       };
     });
-
   };
-  const editValueValidate = (name, value,regex) => {
-    let isRegValid = regex.test(value);
-    if (!isRegValid && value.length > EDIT_VALID_TEXT_LENGTH) {
-      editSetCtx(ctx => {
-        ctx[name].isValid = true;
-        return {
-          ...ctx
-        };
-      });
-    } else {
-      editSetCtx(ctx => {
-        ctx[name].isValid = false;
-        return {
-          ...ctx
-        };
-      });
+  const editPageSetIsValid = (validBool1,validBool2 ) => {
+    editSetCtx(ctx => {
+      let isValid = (validBool1 && validBool2)
+      return {
+          ...ctx,
+          isValid 
+    }})
+  }
+  useEffect(() => {
+    editPageSetIsValid(validateInputValue(editCtx.inputTitle.value),validateInputValue(editCtx.inputDesc.value))
+  },[editCtx.state,editCtx.inputTitle.value, editCtx.inputDesc.value]);
+
+  const editPageCreatePostBody = ({contents, title}) => {
+    return {
+      datetime: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString(),
+      contents,
+      title,
+      url: 'https://namu.wiki/w/%EC%9D%B4%ED%9A%A8%EB%A6%AC'
     }
-  };
-  const buttonSubmit = {
-    themeClass: BUTTON_THEME.RED,
-    text: "submit"
-  };
-  
-  const buttonCancel = {
-    text: "cancel"
-  };
-
+  }
   const onEditSubmitButton = () => {
     try {
-        let body = {
-            datetime: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString(),
-            contents: editCtx.inputDesc.value,
-            title: editCtx.inputTitle.value,
-            url: 'https://namu.wiki/w/%EC%9D%B4%ED%9A%A8%EB%A6%AC'
+      onEditSumbitHandler({id : editCtx.id, body : editPageCreatePostBody(
+        { contents : editCtx.inputDesc.value,
+          title :editCtx.inputTitle.value})
         }
-        onEditSumbitHandler(JSON.stringify(body))
+      ,onEditSubmitCallback)
     } catch (error) {
         console.log(error)
     }
-  
   };
-  const onEditCancelButton = () => {
-    console.log("cancel");
+  
+  const onEditSubmitCallback = () =>{
+    history.push('/')
+  }
+  const editPageInitiate = () =>{
     editSetCtx({
-        inputTitle: { ...editInputTitle },
-        inputDesc: { ...editInputDesc },
-        state : EDIT_STATE.INIT
-      })
+      inputTitle: { ...editInputTitle },
+      inputDesc: { ...editInputDesc },
+      state : EDIT_STATE.INIT
+    })
+  }
+  const onEditCancelButton = () => {
+    onEditCancelHandler(editPageInitiate)
   };
 
+
   const editContents = {
-    header: <h3>Edit.</h3>,
+    header: <h3>{editCtx.mode}.</h3>,
     body: (
       <EditWebPost
-        editpost={editCtx}
+        editpost={editCtx !== null &&editCtx}
         onChange={onEditChange}
-        validate={editValueValidate}
       ></EditWebPost>
     ),
     buttonSubmit: (

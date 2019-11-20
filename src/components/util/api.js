@@ -5,6 +5,7 @@ export const fetchCustomPOST = (option,body) => {
 export const fetchCommon = async ( option )=> {
     const {url , ...rest} = option 
     const res = await window.fetch(url,{...rest})
+    console.log(res)
     const data = await res.json();
     return data
 }
