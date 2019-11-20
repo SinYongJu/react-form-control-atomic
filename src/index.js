@@ -12,7 +12,6 @@ import {
   Switch,
   Route,
   Link,
-  useParams
 } from "react-router-dom";
 
 
@@ -30,12 +29,15 @@ function CustumRouter (props) {
         </li>
       </ul>
       <Switch >
-        <Route path={["/edit/:mode/:id", "/edit/:mode/"]} children={  <EditProvider>
-          <EditPage />
-          </EditProvider>}/>
-        <Route path="/" {...rest} children={<SearchProvider>
-            <SearchPage></SearchPage>
-           </SearchProvider>}/>
+        <Route path={["/edit/:mode/:id", "/edit/:mode/"]} 
+          children={  
+            <EditProvider>
+              <EditPage />
+            </EditProvider>}/>
+        <Route path="/" {...rest} children={
+          <SearchProvider>
+            <SearchPage/>
+          </SearchProvider>}/>
         <Route>
           <div>404 not Found</div>
         </Route>
